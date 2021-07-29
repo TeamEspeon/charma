@@ -2,7 +2,7 @@
 Donate to charities and earn good karma
 
 
-npm install --global expo
+npm install --global expo-cli
 
 yarn install
 
