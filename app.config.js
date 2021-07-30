@@ -1,4 +1,7 @@
-{
+import dotenv from 'dotenv'
+dotenv.config()
+
+export default {
   "expo": {
     "name": "charma",
     "slug": "charma",
@@ -26,7 +29,7 @@
       },
       "config": {
         "googleMaps": {
-          "apiKey": "AIzaSyDQn0SkmMKitMGIuKHDS_h6cnFbKmuW_zQ"
+          "apiKey": process.env.G_API_KEY
         }
       },
       "package": "com.charma"
