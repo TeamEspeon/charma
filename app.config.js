@@ -1,4 +1,7 @@
-{
+import dotenv from 'dotenv'
+dotenv.config()
+
+export default {
   "expo": {
     "name": "charma",
     "slug": "charma",
@@ -23,7 +26,13 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "config": {
+        "googleMaps": {
+          "apiKey": process.env.G_API_KEY
+        }
+      },
+      "package": "com.charma"
     },
     "web": {
       "favicon": "./assets/favicon.png"
