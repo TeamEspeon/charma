@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
+const SALT_WORK_FACTOR = 10;
 
 const {
   Types: {
@@ -26,9 +28,12 @@ const userSchema = new mongoose.Schema({
   },
   email: {
     type: String,
+    required: true,
+    unique: true,
   },
   password: {
     type: String,
+    required: true,
   },
   googleId: {
     type: String,
@@ -40,6 +45,27 @@ const userSchema = new mongoose.Schema({
     type: [ObjectId],
   }
 }, options);
+
+userSchema.pre('save', async function save(next) {
+  if (!this.isModified('password')) return next();
+  
+  try {
+    const salt = await bcrypt.genSalt(SALT_WORK_FACTOR);
+    this.password = await bcrypt.hash(this.password, salt);
+    return next();
+  } catch (err) {
+    return next(err);
+  }
+});
+
+userSchema.method('validatePassword', function(data, cb) {
+  return bcrypt.compare(data, this.password, function(err, isMatch) {
+    if (err) {
+      return cb(err, false);
+    }
+    return cb(null, isMatch);
+  });
+});
 
 const User = mongoose.model('User', userSchema);
 

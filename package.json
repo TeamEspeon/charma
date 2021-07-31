@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@react-navigation/native": "^5.9.4",
+    "bcrypt": "^5.0.1",
     "dotenv": "^10.0.0",
     "expo": "~42.0.1",
     "expo-google-app-auth": "^8.2.2",
