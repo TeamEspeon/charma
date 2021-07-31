@@ -1,20 +1,26 @@
 const express = require('express');
 
 const app = express();
-const PORT = process.env.PORT || 3030;
 
 const { connectDb } = require('./models/db.js');
 
 const dotenv = require('dotenv');
 
 dotenv.config();
+
+const PORT = process.env.PORT || 3000;
+
 connectDb();
 const apiRouter = require('./routes/api');
+
+// const apiRouter = require('./routes/api');
+const charityOrgRouter = require('./routes/charityOrg');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use('/api', apiRouter);
+// app.use('/api', apiRouter);
+app.use('/charity-organizations', charityOrgRouter);
 
 app.use('*', (req, res) => {
   res.status(404).send();
