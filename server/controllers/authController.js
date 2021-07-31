@@ -45,6 +45,10 @@ const authController = {
     });
   },
 
+  // resetPassword(req, res, next) {
+
+  // },
+
 };
 
 module.exports = authController;

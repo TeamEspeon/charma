@@ -1,6 +1,7 @@
 const  express = require('express');
 const router = express.Router();
 const authController = require('../controllers/authController');
+const userController = require('../controllers/userController');
 
 router.post('/verifyUser', 
   authController.verifyUser,
@@ -13,6 +14,13 @@ router.post('/createUser',
   authController.createUser,
   (req, res) => (
     res.status(200).send('user created successfully')
+  )
+);
+
+router.post('/addFavorite', 
+  userController.userController,
+  (req, res) => (
+    res.status(200).send('success')
   )
 );
 
