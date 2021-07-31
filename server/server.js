@@ -1,7 +1,7 @@
 const express = require('express');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3030;
 
 const { connectDb } = require('./models/db.js');
 
@@ -10,7 +10,6 @@ const dotenv = require('dotenv');
 dotenv.config();
 connectDb();
 const apiRouter = require('./routes/api');
-
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

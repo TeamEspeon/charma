@@ -10,4 +10,11 @@ router.post('/createUser',
   )
 );
 
+router.get('/verifyUser', 
+  authController.verifyUser,
+  (req, res) => (
+    res.status(200).send(res.locals.user)
+  )
+);
+
 module.exports = router;
