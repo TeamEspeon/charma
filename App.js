@@ -1,13 +1,14 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import GMap from './Components/Map';
+import Charities from './Components/Charities';
+
 
 export default function App() {
   return (
     <View style={styles.container}>
       <Text>Charma baby!</Text>
-      <GMap/>
+      <Charities/>
       <StatusBar style="auto" />
     </View>
   );

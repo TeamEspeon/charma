@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import MapView, { Marker } from 'react-native-maps';
-import { StyleSheet, Text, View, Dimensions } from 'react-native';
+import { StyleSheet, Text, View, Dimensions, StatusBar, useWindowDimensions } from 'react-native';
 
 export default function GMap() {
   const [region, setRegion] = useState({
@@ -14,6 +14,7 @@ export default function GMap() {
   });
 
   const [markers, setMarkers] = useState([]);
+  console.log(Dimensions.get('window'));
   return (
     <View style={styles.container}>
       <MapView
@@ -34,13 +35,14 @@ export default function GMap() {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+    marginTop: StatusBar.currentHeight || 0,
+    height: '35%'
   },
   map: {
     width: Dimensions.get('window').width,
-    height: Dimensions.get('window').height,
+    height: Dimensions.get('window').height - Dimensions.get('window').height * 0.55,
   },
 });
