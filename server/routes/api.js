@@ -16,6 +16,4 @@ router.post('/createUser',
   )
 );
 
-
-
 module.exports = router;
