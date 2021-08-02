@@ -1,14 +1,17 @@
 const express = require('express');
 
 const app = express();
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+
+const { connectDb } = require('./models/db.js');
+
+const dotenv = require('dotenv');
+
+dotenv.config();
 
 const PORT = process.env.PORT || 3000;
 
-require('dotenv').config();
-const {connectDb} = require('./models/db');
 connectDb();
+const apiRouter = require('./routes/api');
 
 // const apiRouter = require('./routes/api');
 const charityOrgRouter = require('./routes/charityOrg');
