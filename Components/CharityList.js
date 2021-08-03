@@ -12,35 +12,77 @@ import {
 const DATA = [
   {
     id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    title: 'First Item',
+    charityName: 'Eun Sung Presbyterian Church',
+    classification: 'Religious Organization',
+    streetAdress1: '1234 Blvd',
+    city: 'New York',
+    stateOrProvince: 'NY',
+    website: 'www.eunsung.org',
   },
   {
     id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-    title: 'Second Item',
+    charityName: 'Second Item',
+    classification: 'Religious Organization',
+    streetAdress1: '1234 Blvd',
+    city: 'New York',
+    stateOrProvince: 'NY',
+    website: 'www.eunsung.org',
   },
   {
     id: '58694a0f-3da1-471f-bd96-145571e29d72',
-    title: 'Third Item',
+    charityName: 'Third Item',
+    classification: 'Religious Organization',
+    streetAdress1: '1234 Blvd',
+    city: 'New York',
+    stateOrProvince: 'NY',
+    website: 'www.eunsung.org',
   },
   {
     id: '58694a0f-3da1-471f-bd96-145571e29d73',
-    title: 'Fourth Item',
+    charityName: 'Fourth Item',
+    classification: 'Religious Organization',
+    streetAdress1: '1234 Blvd',
+    city: 'New York',
+    stateOrProvince: 'NY',
+    website: 'www.eunsung.org',
   },
   {
     id: '58694a0f-3da1-471f-bd96-145571e29d76',
-    title: 'Fifth Item',
+    charityName: 'Fifth Item',
+    classification: 'Religious Organization',
+    streetAdress1: '1234 Blvd',
+    city: 'New York',
+    stateOrProvince: 'NY',
+    website: 'www.eunsung.org',
   },
-    {
+  {
     id: '58694a0f-3da1-471f-bd96-145571e29d63',
-    title: 'Sixth Item',
+    charityName: 'Sixth Item',
+    classification: 'Religious Organization',
+    streetAdress1: '1234 Blvd',
+    city: 'New York',
+    stateOrProvince: 'NY',
+    website: 'www.eunsung.org',
   },
 ];
 
-const Item = ({ title }) => (
-  <TouchableOpacity onPress={() => alert(title)}>
-  <View style={styles.item}>
-    <Text style={styles.title}>{title}</Text>
-  </View>
+const Item = ({
+  charityName,
+  classification,
+  streetAdress1,
+  city,
+  stateOrProvince,
+  website
+}) => (
+  <TouchableOpacity onPress={() => alert(charityName)}>
+    <View style={styles.item}>
+      <Text style={styles.charityName}>{charityName}</Text>
+      <Text style={styles.classification}>{classification}</Text>
+      <Text style={styles.address}>
+        {streetAdress1} - {city}: {stateOrProvince}
+      </Text>
+      <Text style={styles.website}>{website}</Text>
+    </View>
   </TouchableOpacity>
 );
 
@@ -56,7 +98,16 @@ const renderSeparator = () => (
 );
 
 export default function CharityList() {
-  const renderItem = ({ item }) => <Item title={item.title} />;
+  const renderItem = ({ item }) => (
+    <Item
+      charityName={item.charityName}
+      classification={item.classification}
+      streetAdress1={item.streetAdress1}
+      city={item.city}
+      stateOrProvince={item.stateOrProvince}
+      website={item.website}
+    />
+  );
 
   return (
     <View style={styles.container}>
@@ -79,11 +130,22 @@ const styles = StyleSheet.create({
   },
   item: {
     // backgroundColor: '#f9c2ff',
+    flexDirection: 'column',
+    alignItems: 'flex-start',
     padding: 20,
     marginVertical: 8,
     marginHorizontal: 16,
   },
-  title: {
-    fontSize: 32,
+  charityName: {
+    fontSize: 12,
   },
+  classification: {
+    fontSize: 10,
+  },
+  address: {
+    fontSize: 10,
+  },
+  website: {
+    fontSize: 10,
+  }
 });
