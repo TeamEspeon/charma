@@ -1,23 +1,30 @@
-import { StatusBar } from 'expo-status-bar';
+import 'react-native-gesture-handler';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import LoginScreen from './screens/LoginScreen';
+import { StyleSheet } from 'react-native';
+import TabNavigator from './Components/Navigation/TabNavigator';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+
+const Tab = createBottomTabNavigator();
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Charma baby!</Text>
-      <StatusBar style="auto" />
-      <LoginScreen />
-    </View>
+    <>
+      <TabNavigator/>
+    </>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+  // container: {
+  //   flex: 1,
+  //   backgroundColor: '#fff',
+  //   alignItems: 'center',
+  //   justifyContent: 'center',
+  // },
+  // wrapper: {
+  //   flexGrow: 1,
+  //   backgroundColor: '#ccc',
+  //   alignItems: 'center',
+  //   justifyContent: 'center',
+  // },
 });
