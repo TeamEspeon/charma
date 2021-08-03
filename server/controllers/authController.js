@@ -8,8 +8,14 @@ const authController = {
     User.findOne({ email }, (err, user) => {
       if (err) next(err);
 
-      user.validatePassword(password, (err, isMatch) => {
-        if (err) next(err);
+      user.validatePassword(password, (error, isMatch) => {
+        if (error) return next({
+          log: `Find Charity Org By EIN - ERROR: ${error}`,
+          message: {
+            err: 'Error occured in charityOrgController.findCharityOrgByEIN',
+            message: error,
+          },
+        });
 
         if (isMatch) {
           res.locals.user = user;
@@ -24,8 +30,15 @@ const authController = {
   createUser(req, res, next) {
     const { firstName, lastName, email, password, lastLocation } = req.body;
 
-    User.findOne({ email }, (err, user) => {
-      if (err) next(err);
+    User.findOne({ email }, (error, user) => {
+      if (error) { return next({
+        log: `createUser: check for existing user - ERROR: ${error}`,
+        message: {
+          err: 'Error occured in charityOrgController.findCharityOrgByEIN',
+          message: error,
+        },
+      });
+      }
 
       if (user) {
         res.status(422).send('Email already in use');
@@ -38,8 +51,15 @@ const authController = {
       email,
       lastLocation,
       password,
-    }, (err, user) => {
-      if (err) { throw err; }
+    }, (error, user) => {
+      if (error) { return next({
+        log: `createUser: User.create - ERROR: ${error}`,
+        message: {
+          err: 'Error occured in charityOrgController.findCharityOrgByEIN',
+          message: error,
+        },
+      });
+      }
       res.locals.user = user;
       return next();
     });

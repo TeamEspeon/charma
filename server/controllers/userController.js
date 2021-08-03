@@ -1,20 +1,19 @@
-// const User = require('../models/user');
+const User = require('../models/user');
 
-// const userController = {
+const userController = {
 
-//   addFavorite(req, res, next) {
-//     const { userId, ein } = req.body;
+  addFavorite(req, res, next) {
+    const { userId, ein } = req.body;
 
-//     User.findOneAndUpdate(
-//       {'_id': userId},
-//       {$push: {favorites: {
-//         charity_id: ein,
-//       }}
-//       }).then(() => next());
+    User.findOneAndUpdate(
+      {'_id': userId},
+      {$push: {favorites: {
+        charity_id: ein,
+      }}
+      }).then(() => next());
+  },
 
-//   },
 
+};
 
-// };
-
-// module.exports = userController;
+module.exports = userController;
