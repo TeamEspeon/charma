@@ -17,8 +17,8 @@ router.post('/createUser',
   )
 );
 
-router.post('/addFavorite', 
-  userController.userController,
+router.post('/addFavorite',
+  userController.addFavorite,
   (req, res) => (
     res.status(200).send('success')
   )
