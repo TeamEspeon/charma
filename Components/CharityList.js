@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   SafeAreaView,
   View,
@@ -9,62 +9,6 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
-const DATA = [
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    charityName: 'Eun Sung Presbyterian Church',
-    classification: 'Religious Organization',
-    streetAdress1: '1234 Blvd',
-    city: 'New York',
-    stateOrProvince: 'NY',
-    website: 'www.eunsung.org',
-  },
-  {
-    id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-    charityName: 'Second Item',
-    classification: 'Religious Organization',
-    streetAdress1: '1234 Blvd',
-    city: 'New York',
-    stateOrProvince: 'NY',
-    website: 'www.eunsung.org',
-  },
-  {
-    id: '58694a0f-3da1-471f-bd96-145571e29d72',
-    charityName: 'Third Item',
-    classification: 'Religious Organization',
-    streetAdress1: '1234 Blvd',
-    city: 'New York',
-    stateOrProvince: 'NY',
-    website: 'www.eunsung.org',
-  },
-  {
-    id: '58694a0f-3da1-471f-bd96-145571e29d73',
-    charityName: 'Fourth Item',
-    classification: 'Religious Organization',
-    streetAdress1: '1234 Blvd',
-    city: 'New York',
-    stateOrProvince: 'NY',
-    website: 'www.eunsung.org',
-  },
-  {
-    id: '58694a0f-3da1-471f-bd96-145571e29d76',
-    charityName: 'Fifth Item',
-    classification: 'Religious Organization',
-    streetAdress1: '1234 Blvd',
-    city: 'New York',
-    stateOrProvince: 'NY',
-    website: 'www.eunsung.org',
-  },
-  {
-    id: '58694a0f-3da1-471f-bd96-145571e29d63',
-    charityName: 'Sixth Item',
-    classification: 'Religious Organization',
-    streetAdress1: '1234 Blvd',
-    city: 'New York',
-    stateOrProvince: 'NY',
-    website: 'www.eunsung.org',
-  },
-];
 
 const Item = ({
   charityName,
@@ -72,7 +16,7 @@ const Item = ({
   streetAdress1,
   city,
   stateOrProvince,
-  website
+  website,
 }) => (
   <TouchableOpacity onPress={() => alert(charityName)}>
     <View style={styles.item}>
@@ -97,7 +41,33 @@ const renderSeparator = () => (
   />
 );
 
-export default function CharityList() {
+export default function CharityList({ zipCode }) {
+  const [DATA, setData] = useState([]);
+  useEffect(() => {
+    const tempData = []
+    if (zipCode) {
+      fetch(`http://192.168.1.222:3030/charity-organizations?zip=${zipCode}`)
+        .then((response) => response.json())
+        .then((response) => {
+          for (let data of response) {
+            tempData.push({
+              id: data.ein,
+              charityName: data.charityName,
+              classification: data.irsClassification.classification,
+              streetAddress1: data.mailingAddress.streetAddress1,
+              city: data.mailingAddress.city,
+              stateOrProvince: data.mailingAddress.stateOrProvince,
+              website: data.websiteURL,
+            });
+          }
+          setData([...tempData]);
+          console.log(DATA);
+        })
+        .catch((error) => console.log(error));
+    }
+  }, [zipCode]);
+
+  console.log('ZIPCODE INSIDE OF THE CHARITYLIST', zipCode);
   const renderItem = ({ item }) => (
     <Item
       charityName={item.charityName}
@@ -111,12 +81,15 @@ export default function CharityList() {
 
   return (
     <View style={styles.container}>
-      <FlatList
-        data={DATA}
-        renderItem={renderItem}
-        keyExtractor={(item) => item.id}
-        ItemSeparatorComponent={renderSeparator}
-      />
+      {DATA.length > 0 && (
+        <FlatList
+          data={DATA}
+          extraData={DATA}
+          renderItem={renderItem}
+          keyExtractor={(item) => item.id}
+          ItemSeparatorComponent={renderSeparator}
+        />
+      )}
     </View>
   );
 }
@@ -124,7 +97,7 @@ export default function CharityList() {
 const styles = StyleSheet.create({
   container: {
     marginTop: 0,
-    height: '65%',
+    height: '55%',
     width: '100%',
     marginBottom: 10,
   },
@@ -147,5 +120,5 @@ const styles = StyleSheet.create({
   },
   website: {
     fontSize: 10,
-  }
+  },
 });
