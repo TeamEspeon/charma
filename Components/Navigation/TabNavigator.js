@@ -1,22 +1,24 @@
 import React from 'react';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Charities from '../Charities';
-import SUSIPrompt from '../SUSIPrompt/SUSIPrompt';
 import { NavigationContainer } from '@react-navigation/native';
-import SignIn from '../SignIn/SignIn'
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import SignIn from '../SignIn/SignIn';
 
-const Tab = createBottomTabNavigator();
+const Stack = createBottomTabNavigator();
 
-const TabNavigator = () => {
+const Navigator = () => {
+
   return (
     <NavigationContainer>
-    <Tab.Navigator>
-      <Tab.Screen name="Home" component={SignIn} />
-      {/* <Tab.Screen name="Me" component={SUSIPrompt} /> */}
-      <Tab.Screen name="Settings" component={Charities} />
-    </Tab.Navigator>
+      <Stack.Navigator
+        initialRouteName="SignIn"
+        // screenOptions={{
+        // header: (props) => <CustomNavBar {...props} />,}}
+      >
+        <Stack.Screen name="SignIn" component={SignIn} />
+        {/* <Stack.Screen name="Home" component={Home} /> */}
+      </Stack.Navigator>
     </NavigationContainer>
   );
 };
 
-export default TabNavigator;
+export default Navigator;
