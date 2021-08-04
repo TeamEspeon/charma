@@ -1,18 +1,15 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import Navigator from './Components/Navigation/TabNavigator';
-import { createStackNavigator } from '@react-navigation/stack';
 
-const Tabs = createStackNavigator();
+import Navigator from './Components/Navigation/TabNavigator';
 
 
 
 export default function App() {
   return (
-    <View>
+    <>
       <Navigator />
-    </View>
+    </>
   );
 }
 
