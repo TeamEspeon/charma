@@ -2,21 +2,19 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import SignIn from '../SignIn/SignIn';
-
-const Stack = createBottomTabNavigator();
-
+import Charities from '../Charities';
+import SUSIPrompt from '../SUSIPrompt/SUSIPrompt';
+const Tabs = createBottomTabNavigator();
 const Navigator = () => {
-
   return (
     <NavigationContainer>
-      <Stack.Navigator
+      <Tabs.Navigator
         initialRouteName="SignIn"
-        // screenOptions={{
-        // header: (props) => <CustomNavBar {...props} />,}}
       >
-        <Stack.Screen name="SignIn" component={SignIn} />
-        {/* <Stack.Screen name="Home" component={Home} /> */}
-      </Stack.Navigator>
+        <Tabs.Screen name="Search" component={Charities} />
+        <Tabs.Screen name="Me" component={SUSIPrompt} />
+        <Tabs.Screen name="more" component={SignIn} />
+      </Tabs.Navigator>
     </NavigationContainer>
   );
 };
