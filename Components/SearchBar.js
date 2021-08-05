@@ -1,10 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { SearchBar } from 'react-native-elements';
 import { StyleSheet, View, TextInput } from 'react-native';
 
-export default function Search() {
+export default function Search( { getZipCode }) {
   const [searchVal, updateSearchVal] = useState('');
   const placeholder = 'Search Charities';
+
+  const submitted = (e) => {
+    updateSearchVal(e.nativeEvent.text);
+    getZipCode(e.nativeEvent.text);
+  }
 
   return (
     <View
@@ -19,7 +24,7 @@ export default function Search() {
       }}
     >
       <TextInput
-        onChangeText={updateSearchVal}
+        onSubmitEditing={submitted}
         placeholder={placeholder}
         style={{
           height: 35,

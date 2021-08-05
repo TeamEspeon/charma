@@ -19,7 +19,7 @@ const charityOrgRouter = require('./routes/charityOrg');
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// app.use('/api', apiRouter);
+app.use('/api', apiRouter);
 app.use('/charity-organizations', charityOrgRouter);
 
 app.use('*', (req, res) => {

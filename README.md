@@ -4,11 +4,7 @@ Donate to charities and earn good karma
 
 npm install --global expo-cli
 
-yarn install
-
-## add dependency 
-
-yarn add dependency-name
+npm install
 
 ## if expo: command not found (mac)
 
