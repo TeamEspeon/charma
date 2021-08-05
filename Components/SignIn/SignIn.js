@@ -22,7 +22,7 @@ const SignIn = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Text>Freight Ops</Text>
+      <Text>Charma</Text>
       <Text>Please Log in</Text>
       <TextInput 
         style={styles.textInput} 
