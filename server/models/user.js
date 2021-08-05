@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
+const CharityOrg = require('./charityOrg');
 const SALT_WORK_FACTOR = 10;
 
 const {
@@ -16,6 +17,13 @@ const options = {
   createdAt: 'created_at', 
   updatedAt: 'updated_at'
 };
+
+const CharityOrgSchema = new mongoose.Schema({
+  ein: {
+    type: String,
+    required: true
+  },
+});
 
 const userSchema = new mongoose.Schema({
   firstName: {
@@ -42,7 +50,7 @@ const userSchema = new mongoose.Schema({
     type: String,
   },
   favorites: {
-    type: [ObjectId],
+    type: [CharityOrgSchema],
   }
 }, options);
 
