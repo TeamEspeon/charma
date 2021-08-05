@@ -4,27 +4,21 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import SignIn from '../SignIn/SignIn';
 import Charities from '../Charities';
+import SUSIPrompt from '../SUSIPrompt/SUSIPrompt';
 
-const Stack = createBottomTabNavigator();
-const Login = createStackNavigator();
+const Tabs = createBottomTabNavigator();
+
 
 const Navigator = () => {
-  const [loggedIn, setAuthStatus] = useState(true);
-
   return (
     <NavigationContainer>
-      {!loggedIn
-      ?
-      <Login.Navigator
+      <Tabs.Navigator
         initialRouteName="SignIn"
       >
-        <Login.Screen name="SignIn" component={SignIn} />
-        {/* <Login.Screen name="SignUp" component={SignUp} /> */}
-      </Login.Navigator>
-      :
-      <Stack.Navigator>
-        <Stack.Screen name="Charities" component={Charities} />
-      </Stack.Navigator>}
+        <Tabs.Screen name="Search" component={Charities} />
+        <Tabs.Screen name="Me" component={SUSIPrompt} />
+        <Tabs.Screen name="SignIn" component={SignIn} />
+      </Tabs.Navigator>
     </NavigationContainer>
   );
 };

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   SafeAreaView,
   View,
@@ -9,38 +9,24 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
-const DATA = [
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    title: 'First Item',
-  },
-  {
-    id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-    title: 'Second Item',
-  },
-  {
-    id: '58694a0f-3da1-471f-bd96-145571e29d72',
-    title: 'Third Item',
-  },
-  {
-    id: '58694a0f-3da1-471f-bd96-145571e29d73',
-    title: 'Fourth Item',
-  },
-  {
-    id: '58694a0f-3da1-471f-bd96-145571e29d76',
-    title: 'Fifth Item',
-  },
-    {
-    id: '58694a0f-3da1-471f-bd96-145571e29d63',
-    title: 'Sixth Item',
-  },
-];
 
-const Item = ({ title }) => (
-  <TouchableOpacity onPress={() => alert(title)}>
-  <View style={styles.item}>
-    <Text style={styles.title}>{title}</Text>
-  </View>
+const Item = ({
+  charityName,
+  classification,
+  streetAdress1,
+  city,
+  stateOrProvince,
+  website,
+}) => (
+  <TouchableOpacity onPress={() => alert(charityName)}>
+    <View style={styles.item}>
+      <Text style={styles.charityName}>{charityName}</Text>
+      <Text style={styles.classification}>{classification}</Text>
+      <Text style={styles.address}>
+        {streetAdress1} - {city}: {stateOrProvince}
+      </Text>
+      <Text style={styles.website}>{website}</Text>
+    </View>
   </TouchableOpacity>
 );
 
@@ -55,17 +41,55 @@ const renderSeparator = () => (
   />
 );
 
-export default function CharityList() {
-  const renderItem = ({ item }) => <Item title={item.title} />;
+export default function CharityList({ zipCode }) {
+  const [DATA, setData] = useState([]);
+  useEffect(() => {
+    const tempData = []
+    if (zipCode) {
+      fetch(`http://192.168.1.222:3030/charity-organizations?zip=${zipCode}`)
+        .then((response) => response.json())
+        .then((response) => {
+          for (let data of response) {
+            tempData.push({
+              id: data.ein,
+              charityName: data.charityName,
+              classification: data.irsClassification.classification,
+              streetAddress1: data.mailingAddress.streetAddress1,
+              city: data.mailingAddress.city,
+              stateOrProvince: data.mailingAddress.stateOrProvince,
+              website: data.websiteURL,
+            });
+          }
+          setData([...tempData]);
+          console.log(DATA);
+        })
+        .catch((error) => console.log(error));
+    }
+  }, [zipCode]);
+
+  console.log('ZIPCODE INSIDE OF THE CHARITYLIST', zipCode);
+  const renderItem = ({ item }) => (
+    <Item
+      charityName={item.charityName}
+      classification={item.classification}
+      streetAdress1={item.streetAdress1}
+      city={item.city}
+      stateOrProvince={item.stateOrProvince}
+      website={item.website}
+    />
+  );
 
   return (
     <View style={styles.container}>
-      <FlatList
-        data={DATA}
-        renderItem={renderItem}
-        keyExtractor={(item) => item.id}
-        ItemSeparatorComponent={renderSeparator}
-      />
+      {DATA.length > 0 && (
+        <FlatList
+          data={DATA}
+          extraData={DATA}
+          renderItem={renderItem}
+          keyExtractor={(item) => item.id}
+          ItemSeparatorComponent={renderSeparator}
+        />
+      )}
     </View>
   );
 }
@@ -73,17 +97,28 @@ export default function CharityList() {
 const styles = StyleSheet.create({
   container: {
     marginTop: 0,
-    height: '65%',
+    height: '55%',
     width: '100%',
     marginBottom: 10,
   },
   item: {
     // backgroundColor: '#f9c2ff',
+    flexDirection: 'column',
+    alignItems: 'flex-start',
     padding: 20,
     marginVertical: 8,
     marginHorizontal: 16,
   },
-  title: {
-    fontSize: 32,
+  charityName: {
+    fontSize: 12,
+  },
+  classification: {
+    fontSize: 10,
+  },
+  address: {
+    fontSize: 10,
+  },
+  website: {
+    fontSize: 10,
   },
 });
