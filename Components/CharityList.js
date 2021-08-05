@@ -41,33 +41,33 @@ const renderSeparator = () => (
   />
 );
 
-export default function CharityList({ zipCode }) {
-  const [DATA, setData] = useState([]);
-  useEffect(() => {
-    const tempData = []
-    if (zipCode) {
-      fetch(`http://192.168.1.222:3030/charity-organizations?zip=${zipCode}`)
-        .then((response) => response.json())
-        .then((response) => {
-          for (let data of response) {
-            tempData.push({
-              id: data.ein,
-              charityName: data.charityName,
-              classification: data.irsClassification.classification,
-              streetAddress1: data.mailingAddress.streetAddress1,
-              city: data.mailingAddress.city,
-              stateOrProvince: data.mailingAddress.stateOrProvince,
-              website: data.websiteURL,
-            });
-          }
-          setData([...tempData]);
-          console.log(DATA);
-        })
-        .catch((error) => console.log(error));
-    }
-  }, [zipCode]);
+export default function CharityList({ DATA }) {
+  // const [DATA, setData] = useState([]);
+  // useEffect(() => {
+  //   const tempData = []
+  //   if (zipCode) {
+  //     fetch(`http://192.168.1.222:3030/charity-organizations?zip=${zipCode}`)
+  //       .then((response) => response.json())
+  //       .then((response) => {
+  //         for (let data of response) {
+  //           tempData.push({
+  //             id: data.ein,
+  //             charityName: data.charityName,
+  //             classification: data.irsClassification.classification,
+  //             streetAddress1: data.mailingAddress.streetAddress1,
+  //             city: data.mailingAddress.city,
+  //             stateOrProvince: data.mailingAddress.stateOrProvince,
+  //             website: data.websiteURL,
+  //           });
+  //         }
+  //         setData([...tempData]);
+  //         console.log(DATA);
+  //       })
+  //       .catch((error) => console.log(error));
+  //   }
+  // }, [zipCode]);
 
-  console.log('ZIPCODE INSIDE OF THE CHARITYLIST', zipCode);
+  // console.log('ZIPCODE INSIDE OF THE CHARITYLIST', zipCode);
   const renderItem = ({ item }) => (
     <Item
       charityName={item.charityName}

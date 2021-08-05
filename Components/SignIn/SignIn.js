@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useState } from 'react';
-import { StyleSheet, TextInput, View, Button } from 'react-native';
+import { StyleSheet, TextInput, View, Button, Text } from 'react-native';
 
 const SignIn = ({ navigation }) => {
   const [email, setEmail] = useState('');
@@ -27,8 +27,8 @@ const SignIn = ({ navigation }) => {
       <TextInput 
         style={styles.textInput} 
         placeholder="Username" 
-        value={username} 
-        onChangeText={setUsername}>
+        value={email} 
+        onChangeText={setEmail}>
       </TextInput>
       <TextInput 
         style={styles.textInput} 
@@ -36,8 +36,8 @@ const SignIn = ({ navigation }) => {
         value={password} 
         onChangeText={setPassword} 
       />
-      <Button 
-        mode="contained" 
+      <Button
+        title="Submit"
         onPress={() => handleLogin()}
       >Submit</Button>
     </View>
