@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useState } from 'react';
-import { StyleSheet, TextInput, View, Button } from 'react-native';
+import { StyleSheet, TextInput, View, Button, Text} from 'react-native';
 
 const SignIn = ({ navigation }) => {
   const [email, setEmail] = useState('');
@@ -26,9 +26,9 @@ const SignIn = ({ navigation }) => {
       <Text>Please Log in</Text>
       <TextInput 
         style={styles.textInput} 
-        placeholder="Username" 
-        value={username} 
-        onChangeText={setUsername}>
+        placeholder="email" 
+        value={email} 
+        onChangeText={setPassword}>
       </TextInput>
       <TextInput 
         style={styles.textInput} 
@@ -38,8 +38,9 @@ const SignIn = ({ navigation }) => {
       />
       <Button 
         mode="contained" 
+        title='Submit'
         onPress={() => handleLogin()}
-      >Submit</Button>
+      />
     </View>
   );
 }
@@ -47,14 +48,14 @@ const SignIn = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     display: 'flex',
-    flexDirection: 'column',
     alignItems: 'center',
-    justifyContent: 'flex-start',
+    justifyContent: 'center',
     height: '100%',
     width: '100%',
     backgroundColor: 'white',
   },
   textInput: {
+    paddingLeft: 5,
     marginLeft: 10,
     marginRight: 10,
     marginTop: 5,

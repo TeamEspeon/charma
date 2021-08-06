@@ -1,26 +1,40 @@
-import React from 'react';
-import {StyleSheet, TextInput, View, Text, Image} from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import React, {useState} from 'react';
+import {StyleSheet, TextInput, View, Text, Button} from 'react-native';
+// import { NavigationContainer } from '@react-navigation/native';
+// import { createStackNavigator } from '@react-navigation/stack';
 import SignIn from '../SignIn/SignIn';
 
-const SUSIStack = createStackNavigator();
 
 
 const SUSIPrompt = () => {
+
     return (
-        <NavigationContainer independent={true}>
-            <View style={styles.wrapper}>
-        <SUSIStack.Screen name='signin' component={SignIn} />
-            </View>
-        </NavigationContainer>
+<View style={styles.wrapper}>
+<Button
+style={styles.button}
+title='Sign in'
+onPress = {() => console.log('sign in pressed!')}
+/>
+<Button
+style={styles.button}
+title='create account'
+onPress = {() => console.log('sign in pressed!')}
+/>
+</View>
     )
 }
 
 const styles = StyleSheet.create({
 wrapper: {
-    justifyContent:'center',
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: 'white',
+},
+button: {
+    flex:1,
+    marginRight: 3,
 }
 });
 
