@@ -13,7 +13,7 @@ router.post('/verifyUser',
 router.post('/createUser',
   authController.createUser,
   (req, res) => (
-    res.status(200).send('user created successfully')
+    res.status(200).json(res.locals)
   )
 );
 

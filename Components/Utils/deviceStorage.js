@@ -9,7 +9,6 @@ const deviceStorage = {
     catch(error) {
       console.log('AsyncStorage Error: ' + error.message)
     }
-
   }
 };
 
