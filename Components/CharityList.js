@@ -9,7 +9,6 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
-
 const renderSeparator = () => (
   <View
     style={{
@@ -23,27 +22,45 @@ const renderSeparator = () => (
 
 export default function CharityList({ DATA }) {
   const [checked, setChecked] = useState(false);
+  const [selectedCharity, setSelectedCharity] = useState({});
 
-const Item = ({
-  charityName,
-  classification,
-  streetAdress1,
-  city,
-  stateOrProvince,
-  website,
-}) => (
-  <TouchableOpacity onPress={() => {setChecked(true)}}>
-    <View style={styles.item}>
-      <Text style={styles.charityName}>{charityName}</Text>
-      <Text style={styles.classification}>{classification}</Text>
-      <Text style={styles.address}>
-        {streetAdress1} - {city}: {stateOrProvince}
-      </Text>
-      <Text style={styles.website}>{website}</Text>
-    </View>
-  </TouchableOpacity>
-);
+  const displayDetails = (item) => {
+    setChecked(true);
+    fetch(`http://192.168.1.222:3030/charity-organizations/${item}`)
+      .then((response) => response.json())
+      .then((responseData) => {
+        console.log(responseData);
+        setSelectedCharity(responseData);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
 
+  const Item = ({
+    charityName,
+    classification,
+    streetAdress1,
+    city,
+    stateOrProvince,
+    website,
+    id
+  }) => (
+    <TouchableOpacity
+      onPress={() => {
+        displayDetails(id)
+      }}
+    >
+      <View style={styles.item}>
+        <Text style={styles.charityName}>{charityName}</Text>
+        <Text style={styles.classification}>{classification}</Text>
+        <Text style={styles.address}>
+          {streetAdress1} - {city}: {stateOrProvince}
+        </Text>
+        <Text style={styles.website}>{website}</Text>
+      </View>
+    </TouchableOpacity>
+  );
 
   const renderItem = ({ item }) => (
     <Item
@@ -53,6 +70,7 @@ const Item = ({
       city={item.city}
       stateOrProvince={item.stateOrProvince}
       website={item.website}
+      id={item.id}
     />
   );
 
@@ -68,7 +86,18 @@ const Item = ({
         />
       )}
       {DATA.length > 0 && checked && (
-        <Text>YES!YES!YES!YES!YES!YES!YES!YES!YES!</Text>
+        <>
+        <TouchableOpacity onPress={() => setChecked(false)}>
+          <View style={styles.individual}>
+            <Text>Back</Text>
+          </View>
+        </TouchableOpacity>
+        <Text>{selectedCharity.charityName}</Text>
+        <Text>{selectedCharity.irsClassification.affiliation}</Text>
+        <Text>{selectedCharity.irsClassification.classification}</Text>
+        <Text>{selectedCharity.mailingAddress.streetAddress1} - {selectedCharity.mailingAddress.city} - {selectedCharity.mailingAddress.stateOrProvince}</Text>
+        <Text>{selectedCharity.irsClassification.nteeType}</Text>
+        </>
       )}
     </View>
   );
@@ -79,6 +108,7 @@ const styles = StyleSheet.create({
     marginTop: 0,
     height: '55%',
     width: '100%',
+    top: 60,
     marginBottom: 10,
   },
   item: {
@@ -89,6 +119,7 @@ const styles = StyleSheet.create({
     marginVertical: 8,
     marginHorizontal: 16,
   },
+  individual: {},
   charityName: {
     fontSize: 12,
   },

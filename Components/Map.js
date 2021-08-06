@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 
 export default function GMap({ coords }) {
+  console.log('GMap: ', coords);
   const [markers, setMarkers] = useState([]);
   return (
     <View style={styles.container}>
@@ -18,13 +19,13 @@ export default function GMap({ coords }) {
         initialRegion={{
           latitude: 37.78825,
           longitude: -122.4324,
-          latitudeDelta: 0.0922,
+          latitudeDelta: 0.0822,
           longitudeDelta: 0.0421,
         }}
         region={{
           latitude: coords[0] && coords[0].latitude || 37.78825,
           longitude: coords[0] && coords[0].longitude || -122.4324,
-          latitudeDelta: 0.0922,
+          latitudeDelta: 0.0822,
           longitudeDelta: 0.0421,
         }}
       >

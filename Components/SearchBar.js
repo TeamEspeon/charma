@@ -15,10 +15,10 @@ export default function Search( { getZipCode }) {
     <View
       style={{
         position: 'absolute',
-        padding: 10,
+        padding: 5,
         alignItems: 'center',
         justifyContent: 'center',
-        marginTop: 30,
+        marginTop: 0,
         width: '100%',
         top: 0,
       }}
@@ -33,8 +33,6 @@ export default function Search( { getZipCode }) {
           borderWidth: 1,
           padding: 10,
           backgroundColor: '#fff',
-          // borderRadius: 25,
-          // borderColor: 'black',
         }}
         textStyle={{ color: '#000' }}
       />
