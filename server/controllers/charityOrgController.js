@@ -31,14 +31,14 @@ charityOrgController.findCharityOrgByEIN = async (req, res, next) => {
     res.locals.response = charityOrg;
     next();
   } catch (error) {
-    // console.log(error);
-    // next({
-    //   log: `Find Charity Org By EIN - ERROR: ${error}`,
-    //   message: {
-    //     err: 'Error occured in charityOrgController.findCharityOrgByEIN',
-    //     message: error,
-    //   },
-    // });
+    console.log(error);
+    next({
+      log: `Find Charity Org By EIN - ERROR: ${error}`,
+      message: {
+        err: 'Error occured in charityOrgController.findCharityOrgByEIN',
+        message: error,
+      },
+    });
   }
 };
 
