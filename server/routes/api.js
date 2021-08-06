@@ -6,7 +6,7 @@ const userController = require('../controllers/userController');
 router.post('/verifyUser', 
   authController.verifyUser,
   (req, res) => (
-    res.status(200).send(res.locals.user)
+    res.status(200).json(res.locals)
   )
 );
 
