@@ -34,7 +34,7 @@ const SignIn = ({ navigation }) => {
         console.log(res);
         if (res.status === 200) {
           console.log('success');
-          // deviceStorage.saveItem("id_token", res.data.jwt);
+          deviceStorage.saveItem("id_token", res.data.jwt);
         }
       });
   };
