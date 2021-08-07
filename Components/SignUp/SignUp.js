@@ -20,6 +20,7 @@ import {
     Divider,
 } from 'native-base';
 import axios from 'axios';
+import deviceStorage from '../Utils/deviceStorage';
 
 const SignUp = ({navigation}) => {
     const [fName, setFname] = useState('');
@@ -32,7 +33,7 @@ const handleSignUp = () => {
     console.log(fName, lName,email, password, confirmPW);
     if (password === confirmPW){
         axios.post(`${urlPrefix}api/createUser`, {
-            firsName: fName,
+            firstName: fName,
             lastName: lName,
             email: email,
             password: password
@@ -40,8 +41,10 @@ const handleSignUp = () => {
             .then(res => {
                 console.log(res.data) // access response data with res.data
                 if (res.status === 200) {
-                    console.log('success');
                     deviceStorage.saveItem("id_token", res.data.token);
+                    navigation.navigate('User Profile', {
+                        user: res.data.user,
+                    });
                 }
                 })
             .catch(error => {

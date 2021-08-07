@@ -3,6 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack'
 import SUSIPrompt from '../SUSIPrompt/SUSIPrompt';
 import SignIn from '../SignIn/SignIn';
 import SignUp from '../SignUp/SignUp';
+import UserProfile from '../UserProfile';
 
 const Stack = createStackNavigator();
 
