@@ -116,14 +116,14 @@ const SignIn = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     display: 'flex',
-    flexDirection: 'column',
     alignItems: 'center',
-    justifyContent: 'flex-start',
+    justifyContent: 'center',
     height: '100%',
     width: '100%',
     backgroundColor: 'white',
   },
   textInput: {
+    paddingLeft: 5,
     marginLeft: 10,
     marginRight: 10,
     marginTop: 5,

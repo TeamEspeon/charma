@@ -1,27 +1,41 @@
 import React from 'react';
-import {StyleSheet, TextInput, View, Text, Image} from 'react-native';
-import { createStackNavigator } from '@react-navigation/stack';
+import { StyleSheet, Button, View } from 'react-native';
 import SignIn from '../SignIn/SignIn';
 import UserProfile from '../UserProfile';
 
-const SUSIStack = createStackNavigator();
-
-const SUSIPrompt = ({ navigation }) => {
+const SUSIPrompt = ({navigation}) => {
   return (
-    <SUSIStack.Navigator 
-      initialRouteName="Sign In"
-      options={{ headerShown: false }}
-    >
-      <SUSIStack.Screen name='Sign In' component={SignIn} />
-      <SUSIStack.Screen name='User Profile' component={UserProfile} />
-    </SUSIStack.Navigator>
+    <View style={styles.wrapper}>
+      <View style={styles.buttonContainer} >
+        <Button style={styles.signIn} title='Log In' onPress={()=> navigation.navigate('SignIn')}/>
+        <Button style={styles.signUp} title='Sign Up' onPress={()=> navigation.navigate('SignUp')}/>
+      </View>
+    </View>
   )
 };
 
 const styles = StyleSheet.create({
 wrapper: {
-    justifyContent:'center',
-    alignItems: 'center',
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'flex-end',
+    backgroundColor: '#ccc',
+},
+buttonContainer: {
+    flex: 1,
+    margin: 10,
+    flexDirection: 'row',
+    backgroundColor: 'red',
+    justifyContent: 'center',
+    height: 40,
+  
+  },
+  signIn: {
+    margin: 10,
+},
+  signUp: {
+    margin: 10,
 }
 });
 

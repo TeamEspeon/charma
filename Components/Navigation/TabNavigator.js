@@ -1,13 +1,12 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { createStackNavigator } from '@react-navigation/stack';
-import SignIn from '../SignIn/SignIn';
+import StackNavigator from './StackNavigator';
 import Charities from '../Charities';
+import More from '../More/More';
 import SUSIPrompt from '../SUSIPrompt/SUSIPrompt';
-import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons'
-// import StripeApp from '../StripeApp';
 import UserProfile from '../UserProfile';
+import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
 
 const Tabs = createBottomTabNavigator();
 
@@ -17,18 +16,22 @@ const Navigator = () => {
       <Tabs.Navigator
         initialRouteName="MyProfile"
       > 
-        {/* <Tabs.Screen name="SignIn" component={SignIn} /> */}
         <Tabs.Screen name="Search" component={Charities} options={{
           tabBarIcon: ({color, size}) => (
             <MaterialCommunityIcons name="map-search" color={color} size={size} />
           )
         }} />
-        <Tabs.Screen name="My Profile" component={SUSIPrompt} options={{
+
+        <Tabs.Screen name="MyProfile" component={StackNavigator} options={{
           tabBarIcon: ({color, size}) => (
           <MaterialCommunityIcons name="account" color={color} size={size} />
           )
         }}/>
-        {/* <Tabs.Screen name="MyProfile" component={UserProfile} /> */}
+        <Tabs.Screen name="More" component={More} options={{
+          tabBarIcon: ({color, size}) => (
+          <MaterialCommunityIcons name="menu" color={color} size={size} />
+          )
+        }}/>
       </Tabs.Navigator>
     </NavigationContainer>
   );
