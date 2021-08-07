@@ -47,7 +47,7 @@ const SignIn = ({ navigation }) => {
     try {
       const { type } = await Google.logInAsync({
         iosClientId: '<YOUR_IOS_CLIENT_ID>',
-        androidClientId: GOOGLE_OAUTH_CLIENT_ID,
+        androidClientId: process.env.GOOGLE_OAUTH_CLIENT_ID,
       });
       if (type === 'success') {
         // Then you can use the Google REST API
