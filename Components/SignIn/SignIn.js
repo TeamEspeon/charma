@@ -25,18 +25,21 @@ const SignIn = ({ navigation }) => {
   const [password, setPassword] = useState('');
 
   const handleLogin = async () => {
-    axios
-      .post(`${urlPrefix}/api/verifyUser`, {
-        email: email,
-        password: password,
-      })
-      .then((res) => {
-        console.log(res);
+
+    axios.post(`${urlPrefix}api/verifyUser`, {
+      email: email,
+      password: password,
+    })
+      .then(res => {
+        console.log(res.data) // access response data with res.data
         if (res.status === 200) {
           console.log('success');
-          deviceStorage.saveItem("id_token", res.data.jwt);
+          deviceStorage.saveItem("id_token", res.data.token);
         }
-      });
+      })
+      .catch(error => {
+        console.log(error)
+      })
   };
 
   const signInWithGoogle = async () => {
