@@ -75,7 +75,7 @@ export default function CharityList({ DATA }) {
     <Item
       charityName={item.charityName}
       classification={item.classification}
-      streetAddress1={item.streetAddress1}
+      streetAddress1={item.streetAddress1 || 'Address unavailable'}
       city={item.city}
       stateOrProvince={item.stateOrProvince}
       website={item.website}

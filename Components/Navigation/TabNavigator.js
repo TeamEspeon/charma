@@ -6,7 +6,8 @@ import SignIn from '../SignIn/SignIn';
 import Charities from '../Charities';
 import SUSIPrompt from '../SUSIPrompt/SUSIPrompt';
 import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons'
-import StripeApp from '../StripeApp';
+// import StripeApp from '../StripeApp';
+import UserProfile from '../UserProfile';
 
 const Tabs = createBottomTabNavigator();
 
@@ -15,7 +16,6 @@ const Navigator = () => {
     <NavigationContainer>
       <Tabs.Navigator
         initialRouteName="MyProfile"
-        options={{ headerShown: false }}
       > 
         {/* <Tabs.Screen name="SignIn" component={SignIn} /> */}
         <Tabs.Screen name="Search" component={Charities} options={{
@@ -23,12 +23,12 @@ const Navigator = () => {
             <MaterialCommunityIcons name="map-search" color={color} size={size} />
           )
         }} />
-        <Tabs.Screen name="MyProfile" component={SUSIPrompt} options={{
+        <Tabs.Screen name="My Profile" component={SUSIPrompt} options={{
           tabBarIcon: ({color, size}) => (
           <MaterialCommunityIcons name="account" color={color} size={size} />
           )
         }}/>
-        <Tabs.Screen name="StripeApp" component={StripeApp} />
+        {/* <Tabs.Screen name="MyProfile" component={UserProfile} /> */}
       </Tabs.Navigator>
     </NavigationContainer>
   );
