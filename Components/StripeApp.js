@@ -87,21 +87,21 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    margin: 20,
+    margin: 10,
   },
   input: {
     backgroundColor: '#efefefef',
-    height: 40,
+    height: 20,
     borderRadius: 8,
-    fontSize: 20,
-    height: 50,
-    padding: 10,
+    fontSize: 14,
+    height: 40,
+    padding: 5,
   },
   card: {
     backgroundColor: '#efefefef',
   },
   cardContainer: {
-    height: 50,
-    marginVertical: 30,
+    height: 40,
+    marginVertical: 20,
   },
 });

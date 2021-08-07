@@ -50,11 +50,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: StatusBar.currentHeight || 0,
-    height: '35%',
+    height: '20%',
   },
   map: {
     width: Dimensions.get('window').width,
     height:
-      Dimensions.get('window').height - Dimensions.get('window').height * 0.55,
+      Dimensions.get('window').height - Dimensions.get('window').height * 0.55 - 105,
   },
 });

@@ -6,7 +6,7 @@ const {CHARITY_APP_URL, CHARITY_APP_ID, CHARITY_APP_SECRET} = process.env;
 
 charityOrgController.findCharityOrgsByZip = async (req, res, next) => {
   const {zip} = req.query;
-  const URL = `${CHARITY_APP_URL}?app_id=${CHARITY_APP_ID}&app_key=${CHARITY_APP_SECRET}&pageSize=10&zip=${zip}`;
+  const URL = `${CHARITY_APP_URL}?app_id=${CHARITY_APP_ID}&app_key=${CHARITY_APP_SECRET}&pageSize=20&zip=${zip}`;
   try {
     const {data: charityOrgList} = await axios(URL);
     res.locals.response = charityOrgList;
