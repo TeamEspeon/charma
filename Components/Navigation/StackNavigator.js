@@ -8,11 +8,12 @@ const Stack = createStackNavigator();
 
 const StackNavigator = () => {
     return (
-            <Stack.Navigator  screenOptions={{headerShown: false}} >
-                <Stack.Screen name="SUSIPrompt"  component={SUSIPrompt}/>
-                <Stack.Screen name="SignIn" component={SignIn}/>
-                <Stack.Screen name="SignUp" component={SignUp}/>
-            </Stack.Navigator>
+        <Stack.Navigator  screenOptions={{headerShown: false}} >
+            <Stack.Screen name="SUSIPrompt"  component={SUSIPrompt}/>
+            <Stack.Screen name="SignIn" component={SignIn}/>
+            <Stack.Screen name="SignUp" component={SignUp}/>
+            <Stack.Screen name='User Profile' component={UserProfile} />
+        </Stack.Navigator>
     )
 };
 
