@@ -178,7 +178,7 @@ export default function CharityList({ DATA }) {
                 {selectedCharity.mailingAddress.stateOrProvince}
               </Text>
             </HStack>
-            <Divider marginBottom={2} marginTop={1} />
+            <Divider marginBottom={2} marginTop={4} />
             <Center>
               <Heading size="sm" padding={1}>
                 Pay with Stripe
