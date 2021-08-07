@@ -1,8 +1,24 @@
 import axios from 'axios';
 import React, { useState } from 'react';
-import { StyleSheet, TextInput, View, Button, Text } from 'react-native';
-// import { urlPrefix } from '../Utils/ipAddress';
-// import deviceStorage from '../Utils/deviceStorage';
+import { StyleSheet, TextInput, View } from 'react-native';
+import { urlPrefix } from '../Utils/ipAddress';
+import deviceStorage from '../Utils/deviceStorage';
+import { MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
+import {
+  NativeBaseProvider,
+  Box,
+  Text,
+  Heading,
+  VStack,
+  FormControl,
+  Input,
+  Link,
+  Button,
+  Icon,
+  IconButton,
+  HStack,
+  Divider,
+} from 'native-base';
 
 const SignIn = ({ navigation }) => {
   const [email, setEmail] = useState('');
@@ -10,17 +26,20 @@ const SignIn = ({ navigation }) => {
 
   const handleLogin = async () => {
 
-    axios.post(`${urlPrefix}/api/verifyUser`, {
+    axios.post(`${urlPrefix}api/verifyUser`, {
       email: email,
       password: password,
     })
-    .then(res => {
-      console.log(res);
-      if (res.status === 200) {
-        console.log('success');
-        // deviceStorage.saveItem("id_token", res.data.jwt);
-      }
-    })
+      .then(res => {
+        console.log(res.data) // access response data with res.data
+        if (res.status === 200) {
+          console.log('success');
+          deviceStorage.saveItem("id_token", res.data.token);
+        }
+      })
+      .catch(error => {
+        console.log(error)
+      })
   };
 
   const signInWithGoogle = async () => {
@@ -28,7 +47,7 @@ const SignIn = ({ navigation }) => {
     try {
       const { type } = await Google.logInAsync({
         iosClientId: '<YOUR_IOS_CLIENT_ID>',
-        androidClientId: GOOGLE_OAUTH_CLIENT_ID,
+        androidClientId: process.env.GOOGLE_OAUTH_CLIENT_ID,
       });
       if (type === 'success') {
         // Then you can use the Google REST API
@@ -41,28 +60,52 @@ const SignIn = ({ navigation }) => {
   };
 
   return (
-    <View style={styles.container}>
-      <Text>Charma</Text>
-      <Text>Please Log in</Text>
-      <TextInput 
-        style={styles.textInput} 
-        placeholder="Email" 
-        value={email} 
-        onChangeText={setEmail}>
-      </TextInput>
-      <TextInput 
-        style={styles.textInput} 
-        placeholder="Password" 
-        value={password} 
-        onChangeText={setPassword} 
-      />
-      <Button
-        title="Submit"
-        onPress={() => handleLogin()}
-      >Submit</Button>
-      <Button title="Login with Google" onPress={signInWithGoogle} />
-    </View>
-  )
+    <NativeBaseProvider>
+      <Box safeArea flex={1} p={2} w="90%" mx="auto">
+        <Heading size="lg" color="primary.500">
+          Charma
+        </Heading>
+        <Heading color="muted.400" size="xs">
+          Sign in to continue!
+        </Heading>
+
+        <VStack space={2} mt={5}>
+          <FormControl>
+            <FormControl.Label
+              _text={{ color: 'muted.700', fontSize: 'sm', fontWeight: 600 }}
+            >
+              Email
+            </FormControl.Label>
+            <Input bg="#fff" onChangeText={setEmail} />
+          </FormControl>
+          <FormControl mb={5}>
+            <FormControl.Label
+              _text={{ color: 'muted.700', fontSize: 'sm', fontWeight: 600 }}
+            >
+              Password
+            </FormControl.Label>
+            <Input type="password" bg="#fff" onChangeText={setPassword} />
+          </FormControl>
+          <VStack space={2}>
+            <Button
+              colorScheme="cyan"
+              _text={{ color: 'white' }}
+              onPress={() => handleLogin()}
+            >
+              Submit
+            </Button>
+            <Button
+              colorScheme="cyan"
+              _text={{ color: 'white' }}
+              onPress={signInWithGoogle}
+            >
+              Login with Google
+            </Button>
+          </VStack>
+        </VStack>
+      </Box>
+    </NativeBaseProvider>
+  );
 };
 
 const styles = StyleSheet.create({
@@ -84,7 +127,7 @@ const styles = StyleSheet.create({
     height: 40,
     borderWidth: 1,
     borderRadius: 3,
-  }
+  },
 });
 
 export default SignIn;

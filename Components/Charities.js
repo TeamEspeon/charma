@@ -5,6 +5,7 @@ import CharityList from './CharityList';
 import Search from './SearchBar';
 import { View } from 'react-native';
 
+
 export default function Charities() {
   const [zipCode, setZipCode] = useState('');
   const [DATA, setData] = useState([]);
@@ -26,6 +27,7 @@ export default function Charities() {
             )
               .then((response) => response.json())
               .then((response) => {
+                // console.log(response.status)
                 if (response.status === 'OK') {
                   tempCoords.push({
                     latitude: response.results[0].geometry.location.lat,
@@ -33,6 +35,8 @@ export default function Charities() {
                     name: charity.charityName,
                   });
                   resolve('done');
+                } else {
+                  resolve('could not find but done')
                 }
               });
           })
@@ -46,7 +50,7 @@ export default function Charities() {
 
   const getZipCode = (zipCode) => {
     const tempData = [];
-    fetch(`http://192.168.1.222:3030/charity-organizations?zip=${zipCode}`)
+    fetch(`http://localhost:3030/charity-organizations?zip=${zipCode}`)
       .then((response) => response.json())
       .then((response) => {
         for (let data of response) {

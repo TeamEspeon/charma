@@ -25,7 +25,7 @@ charityOrgController.findCharityOrgsByZip = async (req, res, next) => {
 
 charityOrgController.findCharityOrgByEIN = async (req, res, next) => {
   const {ein} = req.params;
-  const URL = `${CHARITY_APP_URL}/${ein}?app_id=${CHARITY_APP_ID}&app_key=${CHARITY_APP_SECRET}`;
+  const URL = `${CHARITY_APP_URL}${ein}?app_id=${CHARITY_APP_ID}&app_key=${CHARITY_APP_SECRET}`;
   try {
     const {data: charityOrg} = await axios(URL);
     res.locals.response = charityOrg;

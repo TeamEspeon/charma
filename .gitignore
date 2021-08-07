@@ -14,5 +14,6 @@ web-build/
 
 .env
 
-./screens/credentials.js
+screens/credentials.js
 Components/Utils/ipAddress.js
+screens/credentials.js
