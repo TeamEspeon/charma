@@ -4,11 +4,12 @@ import {
   View,
   FlatList,
   StyleSheet,
-  Text,
   StatusBar,
   TouchableOpacity,
 } from 'react-native';
 
+import { Text, Heading, Box, Stack, HStack} from 'native-base';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 const renderSeparator = () => (
   <View
@@ -23,36 +24,62 @@ const renderSeparator = () => (
 
 export default function CharityList({ DATA }) {
   const [checked, setChecked] = useState(false);
+  const [selectedCharity, setSelectedCharity] = useState({});
 
-const Item = ({
-  charityName,
-  classification,
-  streetAdress1,
-  city,
-  stateOrProvince,
-  website,
-}) => (
-  <TouchableOpacity onPress={() => {setChecked(true)}}>
-    <View style={styles.item}>
-      <Text style={styles.charityName}>{charityName}</Text>
-      <Text style={styles.classification}>{classification}</Text>
-      <Text style={styles.address}>
-        {streetAdress1} - {city}: {stateOrProvince}
-      </Text>
-      <Text style={styles.website}>{website}</Text>
-    </View>
-  </TouchableOpacity>
-);
+  console.log(DATA)
+  const displayDetails = (item) => {
+    setChecked(true);
+    fetch(`http://192.168.1.222:3030/charity-organizations/${item}`)
+      .then((response) => response.json())
+      .then((responseData) => {
+        console.log(responseData);
+        setSelectedCharity(responseData);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
 
+  const Item = ({
+    charityName,
+    classification,
+    streetAddress1,
+    city,
+    stateOrProvince,
+    website,
+    id
+  }) => (
+    <TouchableOpacity
+      onPress={() => {
+        displayDetails(id)
+      }}
+    >
+      {/* <Stack space={3} alignItems="flex-start"> */}
+      <HStack space={1} alignItems="flex-start">
+      <Box alignItems="center" justify="center" paddingTop="25px" paddingLeft="10px">
+        <MaterialCommunityIcons name="account" size={24} color="red"/>
+      </Box>
+      <View style={styles.item}>
+        <Heading size="xs">{charityName}</Heading>
+        <Text fontSize="sm">{classification}</Text>
+        <Text fontSize="xs">
+          {streetAddress1} - {city}: {stateOrProvince}
+        </Text>
+      </View>
+      </HStack>
+      {/* </Stack> */}
+    </TouchableOpacity>
+  );
 
   const renderItem = ({ item }) => (
     <Item
       charityName={item.charityName}
       classification={item.classification}
-      streetAdress1={item.streetAdress1}
+      streetAddress1={item.streetAddress1}
       city={item.city}
       stateOrProvince={item.stateOrProvince}
       website={item.website}
+      id={item.id}
     />
   );
 
@@ -67,8 +94,19 @@ const Item = ({
           ItemSeparatorComponent={renderSeparator}
         />
       )}
-      {DATA.length > 0 && checked && (
-        <Text>YES!YES!YES!YES!YES!YES!YES!YES!YES!</Text>
+      {DATA.length > 0 && checked && selectedCharity && (
+        <>
+        <TouchableOpacity onPress={() => setChecked(false)}>
+          <View style={styles.individual}>
+            <Text>Back</Text>
+          </View>
+        </TouchableOpacity>
+        <Text>{selectedCharity.charityName}</Text>
+        <Text>{selectedCharity.irsClassification.affiliation}</Text>
+        <Text>{selectedCharity.irsClassification.classification}</Text>
+        <Text>{selectedCharity.mailingAddress.streetAddress1} - {selectedCharity.mailingAddress.city} - {selectedCharity.mailingAddress.stateOrProvince}</Text>
+        <Text>{selectedCharity.irsClassification.nteeType}</Text>
+        </>
       )}
     </View>
   );
@@ -79,16 +117,19 @@ const styles = StyleSheet.create({
     marginTop: 0,
     height: '55%',
     width: '100%',
+    top: 60,
     marginBottom: 10,
   },
   item: {
     // backgroundColor: '#f9c2ff',
     flexDirection: 'column',
     alignItems: 'flex-start',
-    padding: 20,
-    marginVertical: 8,
-    marginHorizontal: 16,
+    paddingTop: 10,
+    paddingBottom: 10,
+    marginVertical: 5,
+    marginHorizontal: 10,
   },
+  individual: {},
   charityName: {
     fontSize: 12,
   },
