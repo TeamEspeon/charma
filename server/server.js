@@ -1,18 +1,27 @@
 const express = require('express');
-
 const app = express();
+const { connectDb } = require('./models/db.js');
+const dotenv = require('dotenv');
+const jwt = require('jsonwebtoken');
+const bodyParser = require('body-parser');
 const PORT = process.env.PORT || 3000;
 
-const connectDb = require('./models/db.js');
-require('dotenv').config();
+dotenv.config();
 
-const apiRouter = require('./routes/api');
-connectDb();
-
+app.use(bodyParser.json());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+connectDb();
+
+const apiRouter = require('./routes/api');
+const stripeRouter = require('./routes/stripe');
+const charityOrgRouter = require('./routes/charityOrg');
+
+
+app.use('/stripe', stripeRouter);
 app.use('/api', apiRouter);
+app.use('/charity-organizations', charityOrgRouter);
 
 app.use('*', (req, res) => {
   res.status(404).send();

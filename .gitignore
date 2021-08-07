@@ -13,3 +13,7 @@ web-build/
 .DS_Store
 
 .env
+
+screens/credentials.js
+Components/Utils/ipAddress.js
+screens/credentials.js
