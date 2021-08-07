@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import { StyleSheet, TextInput, View } from 'react-native';
 import { urlPrefix } from '../Utils/ipAddress';
 import deviceStorage from '../Utils/deviceStorage';
-import { MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
 import {
   NativeBaseProvider,
   Box,

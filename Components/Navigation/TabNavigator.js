@@ -4,10 +4,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import StackNavigator from './StackNavigator';
 import Charities from '../Charities';
 import More from '../More/More';
-import SUSIPrompt from '../SUSIPrompt/SUSIPrompt';
-import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons'
-import StripeApp from '../StripeApp';
-
+import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
 const Tabs = createBottomTabNavigator();
 
 const Navigator = () => {
@@ -28,7 +25,11 @@ const Navigator = () => {
           <MaterialCommunityIcons name="account" color={color} size={size} />
           )
         }}/>
-        <Tabs.Screen name="StripeApp" component={StripeApp} />
+        <Tabs.Screen name="More" component={More} options={{
+          tabBarIcon: ({color, size}) => (
+          <MaterialCommunityIcons name="menu" color={color} size={size} />
+          )
+        }}/>
       </Tabs.Navigator>
     </NavigationContainer>
   );
