@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {StyleSheet, Text, View, TextInput, Alert, Button} from 'react-native';
 import {StripeProvider, CardField, useConfirmPayment} from '@stripe/stripe-react-native';
 // import dotenv from 'dotenv';
+import { stripeKey, urlPrefix } from './Utils/ipAddress'
 
 // dotenv.config();
 const API_URL = "http://localhost:3000";
@@ -13,7 +14,7 @@ export default function StripeApp() {
 
   const fetchPaymentIntentClientSecret = async () => {
     // 'https://api.stripe.com/v1/payment_intents/client_secret'
-    const response = await fetch(`${API_URL}/create-payment-intent`, {
+    const response = await fetch(`${urlPrefix}create-payment-intent`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -56,7 +57,7 @@ export default function StripeApp() {
   };
 
   return (
-    <StripeProvider publishableKey={process.env.STRIPE_PUBLISHABLE_KEY}>
+    <StripeProvider publishableKey={stripeKey}>
       <View style={styles.container}>
         <TextInput
           autoCapitalize="none"

@@ -8,8 +8,9 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
-import { Text, Heading, Box, Stack, HStack} from 'native-base';
+import { Text, Heading, Box, Stack, HStack, VStack, Badge} from 'native-base';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { urlPrefix } from './Utils/ipAddress'
 
 const renderSeparator = () => (
   <View
@@ -26,10 +27,9 @@ export default function CharityList({ DATA }) {
   const [checked, setChecked] = useState(false);
   const [selectedCharity, setSelectedCharity] = useState({});
 
-  console.log(DATA)
   const displayDetails = (item) => {
     setChecked(true);
-    fetch(`http://192.168.1.222:3030/charity-organizations/${item}`)
+    fetch(`${urlPrefix}charity-organizations/${item}`)
       .then((response) => response.json())
       .then((responseData) => {
         console.log(responseData);
@@ -94,19 +94,19 @@ export default function CharityList({ DATA }) {
           ItemSeparatorComponent={renderSeparator}
         />
       )}
-      {DATA.length > 0 && checked && selectedCharity && (
-        <>
+      {DATA.length > 0 && checked && Object.keys(selectedCharity).length > 0 && (
+        <VStack>
         <TouchableOpacity onPress={() => setChecked(false)}>
-          <View style={styles.individual}>
-            <Text>Back</Text>
-          </View>
+          <Badge colorScheme="info" style={styles.badge}>
+            Back
+          </Badge>
         </TouchableOpacity>
         <Text>{selectedCharity.charityName}</Text>
         <Text>{selectedCharity.irsClassification.affiliation}</Text>
         <Text>{selectedCharity.irsClassification.classification}</Text>
         <Text>{selectedCharity.mailingAddress.streetAddress1} - {selectedCharity.mailingAddress.city} - {selectedCharity.mailingAddress.stateOrProvince}</Text>
         <Text>{selectedCharity.irsClassification.nteeType}</Text>
-        </>
+        </VStack>
       )}
     </View>
   );
