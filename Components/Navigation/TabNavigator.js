@@ -6,6 +6,7 @@ import SignIn from '../SignIn/SignIn';
 import Charities from '../Charities';
 import SUSIPrompt from '../SUSIPrompt/SUSIPrompt';
 import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons'
+import StripeApp from '../StripeApp';
 
 const Tabs = createBottomTabNavigator();
 
@@ -27,6 +28,7 @@ const Navigator = () => {
           <MaterialCommunityIcons name="account" color={color} size={size} />
           )
         }}/>
+        <Tabs.Screen name="StripeApp" component={StripeApp} />
       </Tabs.Navigator>
     </NavigationContainer>
   );

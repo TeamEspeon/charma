@@ -50,7 +50,7 @@ export default function Charities() {
 
   const getZipCode = (zipCode) => {
     const tempData = [];
-    fetch(`http://192.168.1.222:3030/charity-organizations?zip=${zipCode}`)
+    fetch(`http://localhost:3030/charity-organizations?zip=${zipCode}`)
       .then((response) => response.json())
       .then((response) => {
         for (let data of response) {
