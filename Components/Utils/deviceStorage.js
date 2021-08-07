@@ -1,4 +1,4 @@
-import { SecureStore } from "expo-secure-store";
+import * as SecureStore from "expo-secure-store";
 
 const deviceStorage = {
 
@@ -7,9 +7,8 @@ const deviceStorage = {
       await SecureStore.setItemAsync(key, value)
     } 
     catch(error) {
-      console.log('AsyncStorage Error: ' + error.message)
+      console.log(error.message)
     }
-
   }
 };
 

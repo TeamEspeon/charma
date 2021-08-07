@@ -1,4 +1,6 @@
 const User = require('../models/user');
+const jwt = require('jsonwebtoken');
+const accessTokenSecret = 'youraccesstokensecret';
 
 const authController = {
 
@@ -18,7 +20,9 @@ const authController = {
         });
 
         if (isMatch) {
+          const accessToken = jwt.sign({ email: user.email, location: user.location }, accessTokenSecret);
           res.locals.user = user;
+          res.locals.token = accessToken;
           return next();
         } else {
           res.status(401).send('Email and Password do not match');
@@ -29,7 +33,7 @@ const authController = {
 
   createUser(req, res, next) {
     const { firstName, lastName, email, password, lastLocation } = req.body;
-
+    
     User.findOne({ email }, (error, user) => {
       if (error) { return next({
         log: `createUser: check for existing user - ERROR: ${error}`,
@@ -51,6 +55,7 @@ const authController = {
       email,
       lastLocation,
       password,
+      token: null,
     }, (error, user) => {
       if (error) { return next({
         log: `createUser: User.create - ERROR: ${error}`,
@@ -60,14 +65,12 @@ const authController = {
         },
       });
       }
+      const accessToken = jwt.sign({ email: user.email, location: user.location }, accessTokenSecret);
       res.locals.user = user;
+      res.locals.token = accessToken;
       return next();
     });
   },
-
-  // resetPassword(req, res, next) {
-
-  // },
 
 };
 
