@@ -13,7 +13,6 @@ const PORT = process.env.PORT || 3000;
 connectDb();
 const apiRouter = require('./routes/api');
 
-// const apiRouter = require('./routes/api');
 const charityOrgRouter = require('./routes/charityOrg');
 
 app.use(express.json());

@@ -10,13 +10,14 @@
   },
   "dependencies": {
     "@react-navigation/bottom-tabs": "^6.0.0",
-    "@react-navigation/native": "^5.9.4",
+    "@react-navigation/native": "^6.0.1",
     "@react-navigation/stack": "^6.0.0",
     "axios": "^0.21.1",
     "bcrypt": "^5.0.1",
     "dotenv": "^10.0.0",
     "expo": "~42.0.1",
     "expo-google-app-auth": "^8.2.2",
+    "expo-secure-store": "^10.2.0",
     "expo-status-bar": "~1.0.4",
     "mongoose": "^5.13.3",
     "react": "16.13.1",
@@ -28,10 +29,11 @@
     "react-native-reanimated": "~2.2.0",
     "react-native-safe-area-context": "3.2.0",
     "react-native-screens": "~3.4.0",
-    "react-native-web": "~0.13.12"
+    "react-native-vector-icons": "^8.1.0",
+    "react-native-web": "^0.11.7"
   },
   "devDependencies": {
-    "@babel/core": "^7.9.0",
+    "@babel/core": "^7.11.0",
     "eslint": "^7.31.0",
     "eslint-plugin-react": "^7.24.0",
     "eslint-plugin-react-native": "^3.11.0",
