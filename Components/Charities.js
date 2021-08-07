@@ -4,7 +4,7 @@ import { StyleSheet } from 'react-native';
 import CharityList from './CharityList';
 import Search from './SearchBar';
 import { View } from 'react-native';
-
+import { urlPrefix } from './Utils/ipAddress'
 
 export default function Charities() {
   const [zipCode, setZipCode] = useState('');
@@ -27,7 +27,6 @@ export default function Charities() {
             )
               .then((response) => response.json())
               .then((response) => {
-                // console.log(response.status)
                 if (response.status === 'OK') {
                   tempCoords.push({
                     latitude: response.results[0].geometry.location.lat,
@@ -50,7 +49,7 @@ export default function Charities() {
 
   const getZipCode = (zipCode) => {
     const tempData = [];
-    fetch(`http://localhost:3030/charity-organizations?zip=${zipCode}`)
+    fetch(`${urlPrefix}charity-organizations?zip=${zipCode}`)
       .then((response) => response.json())
       .then((response) => {
         for (let data of response) {
