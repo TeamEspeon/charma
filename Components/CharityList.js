@@ -8,8 +8,21 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
-import { Text, Heading, Box, Stack, HStack} from 'native-base';
+import {
+  Text,
+  Heading,
+  Box,
+  Stack,
+  HStack,
+  VStack,
+  Badge,
+  Divider,
+  ScrollView,
+  Center,
+} from 'native-base';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { urlPrefix } from './Utils/ipAddress';
+import StripeApp from './StripeApp';
 
 const renderSeparator = () => (
   <View
@@ -22,14 +35,22 @@ const renderSeparator = () => (
   />
 );
 
+const categories = {
+  'Labor Organization': 'account-hard-hat',
+  'Religious Organization': 'church',
+  'Business League': 'card-account-details-outline',
+  'Educational Organization': 'school',
+  'Social Welfare Organization': 'account-group',
+  'Charitable Organization': 'charity',
+};
+
 export default function CharityList({ DATA }) {
   const [checked, setChecked] = useState(false);
   const [selectedCharity, setSelectedCharity] = useState({});
 
-  console.log(DATA)
   const displayDetails = (item) => {
     setChecked(true);
-    fetch(`http://192.168.1.222:3030/charity-organizations/${item}`)
+    fetch(`${urlPrefix}charity-organizations/${item}`)
       .then((response) => response.json())
       .then((responseData) => {
         console.log(responseData);
@@ -38,7 +59,7 @@ export default function CharityList({ DATA }) {
       .catch((error) => {
         console.log(error);
       });
-  }
+  };
 
   const Item = ({
     charityName,
@@ -47,25 +68,34 @@ export default function CharityList({ DATA }) {
     city,
     stateOrProvince,
     website,
-    id
+    id,
   }) => (
     <TouchableOpacity
       onPress={() => {
-        displayDetails(id)
+        displayDetails(id);
       }}
     >
       {/* <Stack space={3} alignItems="flex-start"> */}
       <HStack space={1} alignItems="flex-start">
-      <Box alignItems="center" justify="center" paddingTop="25px" paddingLeft="10px">
-        <MaterialCommunityIcons name="account" size={24} color="red"/>
-      </Box>
-      <View style={styles.item}>
-        <Heading size="xs">{charityName}</Heading>
-        <Text fontSize="sm">{classification}</Text>
-        <Text fontSize="xs">
-          {streetAddress1} - {city}: {stateOrProvince}
-        </Text>
-      </View>
+        <Box
+          alignItems="center"
+          justify="center"
+          paddingTop="25px"
+          paddingLeft="10px"
+        >
+          <MaterialCommunityIcons
+            name={categories[classification] || 'account'}
+            size={24}
+            color="red"
+          />
+        </Box>
+        <View style={styles.item}>
+          <Heading size="xs">{charityName}</Heading>
+          <Text fontSize="sm">{classification}</Text>
+          <Text fontSize="xs">
+            {streetAddress1} - {city}: {stateOrProvince}
+          </Text>
+        </View>
       </HStack>
       {/* </Stack> */}
     </TouchableOpacity>
@@ -75,7 +105,7 @@ export default function CharityList({ DATA }) {
     <Item
       charityName={item.charityName}
       classification={item.classification}
-      streetAddress1={item.streetAddress1}
+      streetAddress1={item.streetAddress1 || 'Address unavailable'}
       city={item.city}
       stateOrProvince={item.stateOrProvince}
       website={item.website}
@@ -94,19 +124,69 @@ export default function CharityList({ DATA }) {
           ItemSeparatorComponent={renderSeparator}
         />
       )}
-      {DATA.length > 0 && checked && selectedCharity && (
-        <>
-        <TouchableOpacity onPress={() => setChecked(false)}>
-          <View style={styles.individual}>
-            <Text>Back</Text>
-          </View>
-        </TouchableOpacity>
-        <Text>{selectedCharity.charityName}</Text>
-        <Text>{selectedCharity.irsClassification.affiliation}</Text>
-        <Text>{selectedCharity.irsClassification.classification}</Text>
-        <Text>{selectedCharity.mailingAddress.streetAddress1} - {selectedCharity.mailingAddress.city} - {selectedCharity.mailingAddress.stateOrProvince}</Text>
-        <Text>{selectedCharity.irsClassification.nteeType}</Text>
-        </>
+      {DATA.length > 0 && checked && Object.keys(selectedCharity).length > 0 && (
+        <ScrollView height={1000}>
+          <VStack>
+            <TouchableOpacity onPress={() => setChecked(false)}>
+              <HStack>
+                <MaterialCommunityIcons
+                  name="arrow-left"
+                  color="red"
+                  size={15}
+                  marginTop="10px"
+                />
+                <Text top="-3px">Back</Text>
+              </HStack>
+            </TouchableOpacity>
+            <Divider marginBottom={2} marginTop={1} />
+            <Center>
+              <HStack paddingTop="1">
+                <MaterialCommunityIcons
+                  name={categories[selectedCharity.irsClassification.classification] || 'account'}
+                  color="red"
+                  size={15}
+                  top={5}
+                />
+                <Heading size="sm" padding={1} top="-7px">
+                  {selectedCharity.charityName}
+                </Heading>
+              </HStack>
+            </Center>
+            <HStack paddingLeft={3}>
+              <Text fontSize="sm" bold width={100}>
+                Affiliation:{' '}
+              </Text>
+              <Text fontSize="sm" width={270}>
+                {selectedCharity.irsClassification.affiliation}
+              </Text>
+            </HStack>
+            <HStack paddingLeft={3}>
+              <Text fontSize="sm" bold width={100}>
+                Classification:{' '}
+              </Text>
+              <Text fontSize="sm" width={270}>
+                {selectedCharity.irsClassification.classification}
+              </Text>
+            </HStack>
+            <HStack paddingLeft={3}>
+              <Text fontSize="sm" bold width={100}>
+                Address:{' '}
+              </Text>
+              <Text fontSize="sm" width={270}>
+                {selectedCharity.mailingAddress.streetAddress1} -{' '}
+                {selectedCharity.mailingAddress.city} -{' '}
+                {selectedCharity.mailingAddress.stateOrProvince}
+              </Text>
+            </HStack>
+            <Divider marginBottom={2} marginTop={4} />
+            <Center>
+              <Heading size="sm" padding={1}>
+                Pay with Stripe
+              </Heading>
+            </Center>
+            <StripeApp />
+          </VStack>
+        </ScrollView>
       )}
     </View>
   );
@@ -115,7 +195,7 @@ export default function CharityList({ DATA }) {
 const styles = StyleSheet.create({
   container: {
     marginTop: 0,
-    height: '55%',
+    height: '60%',
     width: '100%',
     top: 60,
     marginBottom: 10,
@@ -128,6 +208,7 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
     marginVertical: 5,
     marginHorizontal: 10,
+    width: 330,
   },
   individual: {},
   charityName: {

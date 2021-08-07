@@ -1,10 +1,9 @@
 import React, {useState} from 'react';
 import {StyleSheet, Text, View, TextInput, Alert, Button} from 'react-native';
 import {StripeProvider, CardField, useConfirmPayment} from '@stripe/stripe-react-native';
-// import dotenv from 'dotenv';
+import {ipPrefix} from './Utils/ipAddress';
+import { stripeKey, urlPrefix } from './Utils/ipAddress'
 
-// dotenv.config();
-const API_URL = "http://localhost:3000";
 
 export default function StripeApp() {
   const [email, setEmail] = useState('');
@@ -13,7 +12,7 @@ export default function StripeApp() {
 
   const fetchPaymentIntentClientSecret = async () => {
     // 'https://api.stripe.com/v1/payment_intents/client_secret'
-    const response = await fetch(`${API_URL}/create-payment-intent`, {
+    const response = await fetch(`${urlPrefix}create-payment-intent`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -56,7 +55,7 @@ export default function StripeApp() {
   };
 
   return (
-    <StripeProvider publishableKey={process.env.STRIPE_PUBLISHABLE_KEY}>
+    <StripeProvider publishableKey={stripeKey}>
       <View style={styles.container}>
         <TextInput
           autoCapitalize="none"
@@ -86,21 +85,21 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    margin: 20,
+    margin: 10,
   },
   input: {
     backgroundColor: '#efefefef',
-    height: 40,
+    height: 20,
     borderRadius: 8,
-    fontSize: 20,
-    height: 50,
-    padding: 10,
+    fontSize: 14,
+    height: 40,
+    padding: 5,
   },
   card: {
     backgroundColor: '#efefefef',
   },
   cardContainer: {
-    height: 50,
-    marginVertical: 30,
+    height: 40,
+    marginVertical: 20,
   },
 });

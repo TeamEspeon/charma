@@ -4,7 +4,10 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import StackNavigator from './StackNavigator';
 import Charities from '../Charities';
 import More from '../More/More';
+import SUSIPrompt from '../SUSIPrompt/SUSIPrompt';
+import UserProfile from '../UserProfile';
 import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
+
 const Tabs = createBottomTabNavigator();
 
 const Navigator = () => {
@@ -12,14 +15,13 @@ const Navigator = () => {
     <NavigationContainer>
       <Tabs.Navigator
         initialRouteName="MyProfile"
-        options={{ headerShown: false }}
       > 
-        {/* <Tabs.Screen name="SignIn" component={SignIn} /> */}
         <Tabs.Screen name="Search" component={Charities} options={{
           tabBarIcon: ({color, size}) => (
             <MaterialCommunityIcons name="map-search" color={color} size={size} />
           )
         }} />
+
         <Tabs.Screen name="MyProfile" component={StackNavigator} options={{
           tabBarIcon: ({color, size}) => (
           <MaterialCommunityIcons name="account" color={color} size={size} />

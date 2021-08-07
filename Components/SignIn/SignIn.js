@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 import { StyleSheet, TextInput, View } from 'react-native';
 import { urlPrefix } from '../Utils/ipAddress';
 import deviceStorage from '../Utils/deviceStorage';
+import { MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
+import UserProfile from '../UserProfile';
 import {
   NativeBaseProvider,
   Box,
@@ -22,6 +24,8 @@ import {
 const SignIn = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [loggedIn, setAuthStatus] = useState(false);
+  const [userData, setUserData] = useState([]);
 
   const handleLogin = async () => {
 
@@ -30,10 +34,11 @@ const SignIn = ({ navigation }) => {
       password: password,
     })
       .then(res => {
-        console.log(res.data) // access response data with res.data
         if (res.status === 200) {
-          console.log('success');
           deviceStorage.saveItem("id_token", res.data.token);
+          navigation.navigate('User Profile', {
+            user: res.data.user,
+          });
         }
       })
       .catch(error => {
@@ -93,17 +98,18 @@ const SignIn = ({ navigation }) => {
             >
               Submit
             </Button>
-            <Button
+            {/* <Button
               colorScheme="cyan"
               _text={{ color: 'white' }}
               onPress={signInWithGoogle}
             >
               Login with Google
-            </Button>
+            </Button> */}
           </VStack>
         </VStack>
       </Box>
     </NativeBaseProvider>
+    
   );
 };
 

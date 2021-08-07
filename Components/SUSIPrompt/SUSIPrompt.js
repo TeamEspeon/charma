@@ -1,5 +1,7 @@
 import React from 'react';
 import { StyleSheet, Button, View } from 'react-native';
+import SignIn from '../SignIn/SignIn';
+import UserProfile from '../UserProfile';
 
 const SUSIPrompt = ({navigation}) => {
   return (
