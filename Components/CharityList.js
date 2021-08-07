@@ -4,10 +4,12 @@ import {
   View,
   FlatList,
   StyleSheet,
-  Text,
   StatusBar,
   TouchableOpacity,
 } from 'react-native';
+
+import { Text, Heading, Box, Stack, HStack} from 'native-base';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 const renderSeparator = () => (
   <View
@@ -24,6 +26,7 @@ export default function CharityList({ DATA }) {
   const [checked, setChecked] = useState(false);
   const [selectedCharity, setSelectedCharity] = useState({});
 
+  console.log(DATA)
   const displayDetails = (item) => {
     setChecked(true);
     fetch(`http://192.168.1.222:3030/charity-organizations/${item}`)
@@ -40,7 +43,7 @@ export default function CharityList({ DATA }) {
   const Item = ({
     charityName,
     classification,
-    streetAdress1,
+    streetAddress1,
     city,
     stateOrProvince,
     website,
@@ -51,14 +54,20 @@ export default function CharityList({ DATA }) {
         displayDetails(id)
       }}
     >
+      {/* <Stack space={3} alignItems="flex-start"> */}
+      <HStack space={1} alignItems="flex-start">
+      <Box alignItems="center" justify="center" paddingTop="25px" paddingLeft="10px">
+        <MaterialCommunityIcons name="account" size={24} color="red"/>
+      </Box>
       <View style={styles.item}>
-        <Text style={styles.charityName}>{charityName}</Text>
-        <Text style={styles.classification}>{classification}</Text>
-        <Text style={styles.address}>
-          {streetAdress1} - {city}: {stateOrProvince}
+        <Heading size="xs">{charityName}</Heading>
+        <Text fontSize="sm">{classification}</Text>
+        <Text fontSize="xs">
+          {streetAddress1} - {city}: {stateOrProvince}
         </Text>
-        <Text style={styles.website}>{website}</Text>
       </View>
+      </HStack>
+      {/* </Stack> */}
     </TouchableOpacity>
   );
 
@@ -66,7 +75,7 @@ export default function CharityList({ DATA }) {
     <Item
       charityName={item.charityName}
       classification={item.classification}
-      streetAdress1={item.streetAdress1}
+      streetAddress1={item.streetAddress1}
       city={item.city}
       stateOrProvince={item.stateOrProvince}
       website={item.website}
@@ -115,9 +124,10 @@ const styles = StyleSheet.create({
     // backgroundColor: '#f9c2ff',
     flexDirection: 'column',
     alignItems: 'flex-start',
-    padding: 20,
-    marginVertical: 8,
-    marginHorizontal: 16,
+    paddingTop: 10,
+    paddingBottom: 10,
+    marginVertical: 5,
+    marginHorizontal: 10,
   },
   individual: {},
   charityName: {
