@@ -15,11 +15,11 @@ app.use(express.urlencoded({ extended: true }));
 connectDb();
 
 const apiRouter = require('./routes/api');
-
+const stripeRouter = require('./routes/stripe');
 const charityOrgRouter = require('./routes/charityOrg');
 
 
-
+app.use('/stripe', stripeRouter);
 app.use('/api', apiRouter);
 app.use('/charity-organizations', charityOrgRouter);
 
