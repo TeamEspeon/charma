@@ -1,14 +1,16 @@
 import axios from 'axios';
 import React, { useState } from 'react';
-import { StyleSheet, TextInput, View, Button, Text} from 'react-native';
+import { StyleSheet, TextInput, View, Button, Text } from 'react-native';
+// import { urlPrefix } from '../Utils/ipAddress';
+// import deviceStorage from '../Utils/deviceStorage';
 
 const SignIn = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const handleLogin = async () => {
-    
-    axios.post('/api/Authenticate/login', {
+
+    axios.post(`${urlPrefix}/api/verifyUser`, {
       email: email,
       password: password,
     })
@@ -16,8 +18,26 @@ const SignIn = ({ navigation }) => {
       console.log(res);
       if (res.status === 200) {
         console.log('success');
+        // deviceStorage.saveItem("id_token", res.data.jwt);
       }
     })
+  };
+
+  const signInWithGoogle = async () => {
+    console.log('LoginScreen.js 6 | loggin in');
+    try {
+      const { type } = await Google.logInAsync({
+        iosClientId: '<YOUR_IOS_CLIENT_ID>',
+        androidClientId: GOOGLE_OAUTH_CLIENT_ID,
+      });
+      if (type === 'success') {
+        // Then you can use the Google REST API
+        console.log('LoginScreen.js 17 | success, navigating to profile');
+        // navigation.navigate('LoginScreen', { user });
+      }
+    } catch (error) {
+      console.log('LoginScreen.js 19 | error with login', error);
+    }
   };
 
   return (
@@ -26,9 +46,9 @@ const SignIn = ({ navigation }) => {
       <Text>Please Log in</Text>
       <TextInput 
         style={styles.textInput} 
-        placeholder="email" 
+        placeholder="Email" 
         value={email} 
-        onChangeText={setPassword}>
+        onChangeText={setEmail}>
       </TextInput>
       <TextInput 
         style={styles.textInput} 
@@ -36,14 +56,14 @@ const SignIn = ({ navigation }) => {
         value={password} 
         onChangeText={setPassword} 
       />
-      <Button 
-        mode="contained" 
-        title='Submit'
+      <Button
+        title="Submit"
         onPress={() => handleLogin()}
-      />
+      >Submit</Button>
+      <Button title="Login with Google" onPress={signInWithGoogle} />
     </View>
-  );
-}
+  )
+};
 
 const styles = StyleSheet.create({
   container: {

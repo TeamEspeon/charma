@@ -51,7 +51,8 @@ const userSchema = new mongoose.Schema({
   },
   favorites: {
     type: [CharityOrgSchema],
-  }
+  },
+  profilePhoto: String,
 }, options);
 
 userSchema.pre('save', async function save(next) {

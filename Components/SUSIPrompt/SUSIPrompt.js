@@ -1,40 +1,39 @@
-import React, {useState} from 'react';
-import {StyleSheet, TextInput, View, Text, Button} from 'react-native';
-// import { NavigationContainer } from '@react-navigation/native';
-// import { createStackNavigator } from '@react-navigation/stack';
-import SignIn from '../SignIn/SignIn';
+import React from 'react';
+import { StyleSheet, Button, View } from 'react-native';
 
-
-
-const SUSIPrompt = () => {
-
-    return (
-<View style={styles.wrapper}>
-<Button
-style={styles.button}
-title='Sign in'
-onPress = {() => console.log('sign in pressed!')}
-/>
-<Button
-style={styles.button}
-title='create account'
-onPress = {() => console.log('sign in pressed!')}
-/>
-</View>
-    )
-}
+const SUSIPrompt = ({navigation}) => {
+  return (
+    <View style={styles.wrapper}>
+      <View style={styles.buttonContainer} >
+        <Button style={styles.signIn} title='Log In' onPress={()=> navigation.navigate('SignIn')}/>
+        <Button style={styles.signUp} title='Sign Up' onPress={()=> navigation.navigate('SignUp')}/>
+      </View>
+    </View>
+  )
+};
 
 const styles = StyleSheet.create({
 wrapper: {
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'white',
+    alignItems: 'flex-end',
+    backgroundColor: '#ccc',
 },
-button: {
-    flex:1,
-    marginRight: 3,
+buttonContainer: {
+    flex: 1,
+    margin: 10,
+    flexDirection: 'row',
+    backgroundColor: 'red',
+    justifyContent: 'center',
+    height: 40,
+  
+  },
+  signIn: {
+    margin: 10,
+},
+  signUp: {
+    margin: 10,
 }
 });
 
