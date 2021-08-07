@@ -1,10 +1,7 @@
 import React, {useState} from 'react';
 import {StyleSheet, Text, View, TextInput, Alert, Button} from 'react-native';
 import {StripeProvider, CardField, useConfirmPayment} from '@stripe/stripe-react-native';
-// import dotenv from 'dotenv';
-
-// dotenv.config();
-const API_URL = "http://localhost:3000";
+import {ipPrefix} from './Utils/ipAddress';
 
 export default function StripeApp() {
   const [email, setEmail] = useState('');
@@ -13,7 +10,7 @@ export default function StripeApp() {
 
   const fetchPaymentIntentClientSecret = async () => {
     // 'https://api.stripe.com/v1/payment_intents/client_secret'
-    const response = await fetch(`${API_URL}/create-payment-intent`, {
+    const response = await fetch(`${ipPrefix}stripe`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
