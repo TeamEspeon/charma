@@ -98,13 +98,13 @@ const SignIn = ({ navigation }) => {
             >
               Submit
             </Button>
-            <Button
+            {/* <Button
               colorScheme="cyan"
               _text={{ color: 'white' }}
               onPress={signInWithGoogle}
             >
               Login with Google
-            </Button>
+            </Button> */}
           </VStack>
         </VStack>
       </Box>
