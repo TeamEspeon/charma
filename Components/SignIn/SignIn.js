@@ -8,7 +8,7 @@ const SignIn = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleLogin = async () => {
+  const handleLogin = () => {
 
     axios.post(`${urlPrefix}api/verifyUser`, {
       email: email,
