@@ -85,7 +85,7 @@ export default function CharityList({ DATA }) {
           ItemSeparatorComponent={renderSeparator}
         />
       )}
-      {DATA.length > 0 && checked && (
+      {DATA.length > 0 && checked && selectedCharity && (
         <>
         <TouchableOpacity onPress={() => setChecked(false)}>
           <View style={styles.individual}>

@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 
 export default function GMap({ coords }) {
-  console.log('GMap: ', coords);
+  // console.log('GMap: ', coords);
   const [markers, setMarkers] = useState([]);
   return (
     <View style={styles.container}>

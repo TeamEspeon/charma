@@ -4,7 +4,7 @@ import { StyleSheet, View, TextInput } from 'react-native';
 
 export default function Search( { getZipCode }) {
   const [searchVal, updateSearchVal] = useState('');
-  const placeholder = 'Search Charities';
+  const placeholder = 'Search Charities by Zip Code';
 
   const submitted = (e) => {
     updateSearchVal(e.nativeEvent.text);
